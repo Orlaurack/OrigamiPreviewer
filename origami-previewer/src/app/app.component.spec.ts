@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'origami-previewer'`, () => {
+  it(`should have as title 'angular-origami-previewer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('origami-previewer');
+    expect(app.title).toEqual('angular-origami-previewer');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('origami-previewer app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('angular-origami-previewer app is running!');
   });
 });

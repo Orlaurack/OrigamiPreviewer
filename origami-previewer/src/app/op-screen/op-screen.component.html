@@ -1,0 +1,16 @@
+<svg
+  style="touch-action: none;"
+  (mousedown)="mouseDown()"
+  id="svg"
+  viewBox="0 0 500 500"
+  [attr.height]="solidSettingsService.screenHeight"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg">
+  <!--path id="shadow" [attr.d]="shadow" fill="#000" stroke="#000" stroke-width="10px" /-->
+  <path *ngFor="let path of paths"
+    [attr.d]="path.d"
+    [attr.stroke]="path.stroke"
+    [attr.stroke-width]="path.stroke_width"
+    [attr.fill]="path.fill"
+    [attr.data-z]="path.data_z" />
+</svg>

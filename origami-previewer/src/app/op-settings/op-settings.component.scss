@@ -1,0 +1,26 @@
+@import "../../styles.scss";
+
+:host{
+  display: contents;
+  div{
+    display: flex;
+    flex-direction: column;
+    span, mat-slider{
+      display: block;
+    }
+    button{
+      padding: 10px 0;
+      border: 0;
+      background-color: transparent;
+      margin: 0 10px;
+      box-sizing: content-box;
+      &:hover{
+        color: green;
+      }
+    }
+
+    mat-slider{
+      margin-top: -20px;
+    }
+  }
+}

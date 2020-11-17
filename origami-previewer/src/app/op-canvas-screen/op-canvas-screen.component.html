@@ -1,0 +1,10 @@
+<canvas
+  #canvas
+  [width]="solidSettingsService.definition"
+  [height]="solidSettingsService.definition"
+  (touchstart)="touchStart($event)"
+  (touchmove)="touchMove($event)"
+  (touchend)="touchEnd($event)"
+  (mousedown)="mouseDown()"
+  >
+</canvas>
