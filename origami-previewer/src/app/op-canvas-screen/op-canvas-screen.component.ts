@@ -133,4 +133,7 @@ export class OpCanvasScreenComponent implements OnInit {
       }
     }
   }
+  getDef() {
+    return this.solidSettingsService.definition;
+  }
 }

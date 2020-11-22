@@ -38,7 +38,7 @@ a: string;
     this.isMobileBrowser = true;
     if (this.isMobileBrowser){
       this.svgMode = false;
-    }else{
+    } else {
       this.svgMode = true;
     }
     this.mode = 'preview';

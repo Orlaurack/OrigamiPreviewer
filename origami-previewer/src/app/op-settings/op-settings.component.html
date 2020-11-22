@@ -16,7 +16,7 @@
     [value]="solidSettingsService.inertia"
     (input)="solidSettingsService.inertia = $event.value; change()">
   </mat-slider></span>
-  <span *ngIf="this.mobileScreen" (dblclick)="solidSettingsService.definition = 500">definition: <mat-slider
+  <span *ngIf="this.mobileScreen" (dblclick)="solidSettingsService.definition = solidSettingsService.screenHeight">definition: <mat-slider
     thumbLabel
     tickInterval="100"
     min="100"
@@ -69,7 +69,10 @@
     step="1"
     [value]="solidSettingsService.screenHeight"
     (input)="solidSettingsService.screenHeight = $event.value; change()">
-  </mat-slider></span>
+  </mat-slider>
+
+  <button (click)="solidSettingsService.antiAliasing=!solidSettingsService.antiAliasing">anti aliasing</button>
+</span>
   <!--button *ngIf="!svgMode" (click)="svgMode = true">Svg mode</button>
   <button-- *ngIf="svgMode" (click)="svgMode = false">Canvas js mode</button-->
 </div>

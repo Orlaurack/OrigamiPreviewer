@@ -207,6 +207,8 @@ export class SolidStarService {
         let c = {x: 0, y: 0};
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           c = getCoord(module.ac); ctx.lineTo(c.x, c.y);
           c = getCoord(module.ap); ctx.lineTo(c.x, c.y);
@@ -232,6 +234,8 @@ export class SolidStarService {
         }, (module.cp).z);
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           // m r b
           c = getCoord(module.ac); ctx.lineTo(c.x, c.y);
@@ -260,6 +264,8 @@ export class SolidStarService {
         }, (module.cn).z);
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           c = getCoord(module.hp); ctx.lineTo(c.x, c.y);
           c = getCoord(module.fp); ctx.lineTo(c.x, c.y);
@@ -283,6 +289,8 @@ export class SolidStarService {
         }, (module.fp).z);
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           c = getCoord(module.gn); ctx.lineTo(c.x, c.y);
           c = getCoord(module.dn); ctx.lineTo(c.x, c.y);
@@ -304,6 +312,8 @@ export class SolidStarService {
         }, (module.fn).z);
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           c = getCoord(module.ip); ctx.moveTo(c.x, c.y);
           c = getCoord(module.jp); ctx.lineTo(c.x, c.y);
@@ -314,6 +324,8 @@ export class SolidStarService {
         }, (module.kp).z);
         draw(() => {
           ctx.fillStyle = color;
+          ctx.lineCap = 'butt';
+          ctx.lineJoin = 'bevel';
           ctx.beginPath();
           c = getCoord(module.jn); ctx.moveTo(c.x, c.y);
           c = getCoord(module.in); ctx.lineTo(c.x, c.y);

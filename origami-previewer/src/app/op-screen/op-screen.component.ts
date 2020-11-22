@@ -1,11 +1,9 @@
-/*
 import { Component, Input, OnInit } from '@angular/core';
 import { ColorManagerService } from '../op-color-manager.service';
 import { RotationService } from '../op-rotation.service';
 import { SolidModuleService } from '../op-solid-module.service';
 import { SolidSettingsService } from '../op-solid-settings.service';
 import { SolidStarService } from '../op-solid-star.service';
-import { steps } from '../steps';
 
 @Component({
   selector: 'app-op-screen',
@@ -52,19 +50,19 @@ export class OpScreenComponent implements OnInit {
       if (this.mouseDowned){
         this.mouse.x *= 0.3;
         this.mouse.y *= 0.3;
-      }else{
+      } else {
         this.mouse.x += this.solidSettingsService.rotation.x;
         this.mouse.y += this.solidSettingsService.rotation.y;
       }
-      if (this.mode === 'learn'){
-        if (!this.solidModuleService.controls.paused){
+      if (this.mode === 'learn') {
+        /*if (!this.solidModuleService.controls.paused){
           if (this.solidModuleService.controls.completion === 100){
             this.solidModuleService.controls.completion = 0;
           }
 
 
           const markingFold = new steps().steps[this.solidModuleService.index]['marking-fold'];
-          console.log(markingFold)
+          console.log(markingFold);
           this.solidModuleService.controls.completion +=
             this.solidModuleService.controls.speed /
             (markingFold ? 10.4 : 5);
@@ -73,8 +71,8 @@ export class OpScreenComponent implements OnInit {
           }
         }
         const finalSolid = this.solidModuleService.generateFinalSolid();
-        //this.paths = this.solidModuleService.generateSVG(this.paths, finalSolid, this.solidSettingsService, this.colorManagerService);
-      }else if (this.mode === 'preview'){
+        */
+      } else if (this.mode === 'preview') {
         this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
         this.paths = this.solidStarService.generateSVG(this.paths, this.solid, this.solidSettingsService, this.colorManagerService);
       }
@@ -86,17 +84,17 @@ export class OpScreenComponent implements OnInit {
     this.mouseDowned = true;
   }
 
-  mouseMove(e){
-    if (this.mouseDowned){
+  mouseMove(e) {
+    if (this.mouseDowned) {
       this.mouse = {x: this.mouse.x + e.movementX, y: this.mouse.y + e.movementY};
     }
   }
 
-  touchStart(e){
+  touchStart(e) {
     this.touchMem = {x: e.touches[0].clientX, y: e.touches[0].clientY};
     this.mouseDowned = true;
   }
-  touchMove(e){
+  touchMove(e) {
     if (this.mouseDowned){
       this.touchMemLastMove = {x: 5 * (e.touches[0].clientX - this.touchMem.x), y: 5 * (e.touches[0].clientY - this.touchMem.y)};
       this.touchMem = {x: e.touches[0].clientX, y: e.touches[0].clientY};
@@ -125,4 +123,3 @@ export class OpScreenComponent implements OnInit {
     }
   }
 }
-*/

@@ -12,6 +12,7 @@ export class SolidSettingsService {
   @Output() definition: number;
   @Output() screenHeight: number;
   @Output() picHeight: number;
+  @Output() antiAliasing: boolean;
   @Input() isMobile: boolean;
 
 
@@ -24,5 +25,6 @@ export class SolidSettingsService {
     this.definition = 500;
     this.picHeight = 100;
     this.screenHeight = 250;
+    this.antiAliasing= false;
   }
 }
