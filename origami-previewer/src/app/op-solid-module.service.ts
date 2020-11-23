@@ -20,15 +20,15 @@ export class SolidModuleService {
     this.controls = { paused: true, speed: 1, completion: 0, auto_play: true };
   }
 
-  next(){
+  next() {
     this.index++;
-    if (this.index >= this.maxIndex){
+    if (this.index >= this.maxIndex) {
       this.index = 0;
     }
   }
-  previous(){
+  previous() {
     this.index--;
-    if (this.index < 0){
+    if (this.index < 0) {
       this.index = this.maxIndex - 1;
     }
   }
@@ -37,11 +37,11 @@ export class SolidModuleService {
     this.solid = new Steps().steps[this.index];
     const coords = this.solid.shapes;
     let back = false;
-    if (this.solid.rotation){
+    if (this.solid.rotation) {
       for (const s in this.solid.shapes) {
-        if (s in this.solid.shapes){
-          for (const c in this.solid.shapes[s].coords){
-            if (this.solid.shapes[s].coords[c].x < 0){
+        if (s in this.solid.shapes) {
+          for (const c in this.solid.shapes[s].coords) {
+            if (this.solid.shapes[s].coords[c].x < 0) {
               this.solid.shapes[s].coords[c] = this.rotatePointArroundCenter(
                 this.solid.shapes[s].coords[c],
                 {
@@ -50,7 +50,7 @@ export class SolidModuleService {
                 },
                 this.controls.completion
               );
-            }else if (this.solid.shapes[s].coords[c].x > 0){
+            } else if (this.solid.shapes[s].coords[c].x > 0) {
               this.solid.shapes[s].coords[c] = this.rotatePointArroundCenter(
                 this.solid.shapes[s].coords[c],
                 {
@@ -64,22 +64,22 @@ export class SolidModuleService {
           }
         }
       }
-    }else{
-      for (const index of this.solid['move-index']){
+    } else {
+      for (const index of this.solid['move-index']) {
         const fi = this.solid['fold-index'];
-        if (this.solid['marking-fold']){
+        if (this.solid['marking-fold']) {
           let completion = this.controls.completion;
-          if (completion > 45){
-            if (completion < 55){
+          if (completion > 45) {
+            if (completion < 55) {
               completion = 100;
-            }else{
+            } else {
 
               completion = (100 - completion) * 2.2;
             }
-          }else{
+          } else {
             completion *= 2.2;
           }
-          if (completion >= 50){
+          if (completion >= 50) {
             back = true;
           }
           this.solid.shapes[index[0]].coords[index[1]] = this.rotatePointArroundCenter(
@@ -90,7 +90,7 @@ export class SolidModuleService {
             },
             completion
           );
-        }else{
+        } else {
           this.solid.shapes[index[0]].coords[index[1]] = this.rotatePointArroundCenter(
             coords[index[0]].coords[index[1]],
             {
@@ -102,11 +102,11 @@ export class SolidModuleService {
         }
       }
     }
-    if (this.controls.completion >= 50){
+    if (this.controls.completion >= 50) {
       back = true;
     }
-    if (this.controls.completion === 100){
-      console.log(this.solid);
+    if (this.controls.completion === 100) {
+      // onsole.log(this.solid);
     }
     this.solid.back = back;
     return this.solid;
@@ -120,7 +120,7 @@ export class SolidModuleService {
     },
     ratio: number,
     invertedRotation: boolean= false
-  ){
+  ) {
     const A = rotationAxe.a;
     const B = rotationAxe.b;
     const getCenter = (A, B, C) => {
@@ -142,7 +142,7 @@ export class SolidModuleService {
     const sin = Math.sin(ratio / 100 * Math.PI);
 
     this.turned = ratio >= 50;
-    let a = {x: point.x - center.x, y: point.y - center.y, z: 0};
+    const a = {x: point.x - center.x, y: point.y - center.y, z: 0};
     a.x *= cos;
     a.y *= cos;
     a.z = -sin;
@@ -151,7 +151,7 @@ export class SolidModuleService {
     a.y += center.y;
     a.z *= (d / 2);
 
-    if (invertedRotation){
+    if (invertedRotation) {
       a.z = -a.z;
     }
 
@@ -263,7 +263,7 @@ export class SolidModuleService {
       solidSettingsService.definition
     );
     const getCoord = (coordinate: {x: number, y: number, z: number}) => {
-      if (coordinate.z === undefined){coordinate.z = 0; }
+      if (coordinate.z === undefined) {coordinate.z = 0; }
       const digits = Math.pow(10, 3);
       const project = (v) => {
         const f = (1000 / solidSettingsService.fov) /
@@ -288,7 +288,7 @@ export class SolidModuleService {
       ctx.lineWidth = 3;
       ctx.fillStyle = front ? colorManagerService.inputColors[0].color : '#D8D8D8';
       ctx.setLineDash([]);
-      for (const coord of shape.coords){
+      for (const coord of shape.coords) {
         c = getCoord(coord); ctx.lineTo(c.x, c.y);
       }
       c = getCoord(shape.coords[0]); ctx.lineTo(c.x, c.y);
@@ -298,25 +298,25 @@ export class SolidModuleService {
       ctx.closePath();
     };
 
-    let sortedArray = [];
-    for(const index in solid.shapes){
+    const sortedArray = [];
+    for (const index in solid.shapes) {
       let i = 0;
-      for (const a of sortedArray){
-        if(this.turned?a['z-index']>solid.shapes[index]['z-index']:a['z-index']<solid.shapes[index]['z-index']){
+      for (const a of sortedArray) {
+        if (this.turned ? a['z-index'] > solid.shapes[index]['z-index'] : a['z-index'] < solid.shapes[index]['z-index']) {
           i++;
         }
       }
       sortedArray.splice(i, 0, solid.shapes[index]);
     }
 
-    for (const shape of sortedArray){
+    for (const shape of sortedArray) {
       drawShape(shape, shape['front-face']);
     }
 
 
     ctx.strokeStyle = '#404040';
-    ctx.lineWidth = 2;
-    if (solid['fold-index'].length > 0){
+    ctx.lineWidth = 1;
+    if (solid['fold-index'].length > 0) {
       ctx.setLineDash(solid['v-fold'] ? [30, 10] : [30, 10, 10, 10]);
       const fi = solid['fold-index'];
       c = getCoord(solid.shapes[fi[0][0]].coords[fi[0][1]]); ctx.moveTo(c.x, c.y);
@@ -324,16 +324,16 @@ export class SolidModuleService {
       ctx.stroke();
       ctx.closePath();
     }
-    if (solid['lasts-fold'].length > 0){
+    if (solid['lasts-fold'].length > 0) {
       ctx.beginPath();
       ctx.setLineDash([]);
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1;
       let draw = false;
-      for (const index of solid['lasts-fold']){
+      for (const index of solid['lasts-fold']) {
         c = getCoord(solid.shapes[index[0]].coords[index[1]]);
-        if (draw){
+        if (draw) {
           ctx.lineTo(c.x, c.y);
-        }else{
+        } else {
           ctx.moveTo(c.x, c.y);
         }
         draw = !draw;

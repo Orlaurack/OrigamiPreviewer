@@ -18,8 +18,8 @@ export class RotationService {
     this.solidSettingsService = solidSettingsService;
   }
 
-  rotatePoints(solid: {}, rotation: {x: number, y: number}) {
-    if (rotation === undefined){
+  rotatePoints(solid: any[], rotation: {x: number, y: number}) {
+    if (rotation === undefined) {
       rotation = this.lastRotation[0];
     }
     this.lastRotation[0] = rotation;
@@ -33,13 +33,13 @@ export class RotationService {
     const cosAnglex = Math.cos(rx);
     const sinAngley = Math.sin(ry);
     const cosAngley = Math.cos(ry);
-    const newSolid = {};
+    const newSolid = [];
     for (const index in solid) {
       if (Object.prototype.hasOwnProperty.call(solid, index)) {
         const modules = solid[index];
         newSolid[index] = {};
 
-        for (const p in modules){
+        for (const p in modules) {
           if (Object.prototype.hasOwnProperty.call(modules, p)) {
             const point = modules[p];
             const pointMem = new Coordinate(point.x, point.y, point.z);

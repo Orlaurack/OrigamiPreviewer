@@ -22,5 +22,16 @@
     mat-slider{
       margin-top: -20px;
     }
+
+  }
+  mat-radio-group{
+    display: inline-table;
+    mat-radio-button{
+
+      width: 100%;
+      margin: 5px;
+      display: flex;
+      flex-direction: row;
+    }
   }
 }

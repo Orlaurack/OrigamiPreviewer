@@ -1,4 +1,5 @@
 import { Coordinate } from 'src/app/op-coordinate';
+import { SolidSettingsService } from './op-solid-settings.service';
 
 export class OrigamiModule {
   ap: Coordinate;
@@ -25,21 +26,22 @@ export class OrigamiModule {
   kp: Coordinate;
   kn: Coordinate;
 
-  vertexDistance = 100;
+  picsHeight: number;
 
-  constructor(leftPrimary?: Coordinate,
-              rightPrimary?: Coordinate,
-              leftSecond?: Coordinate,
-              rightSecond?: Coordinate)
-  {
+  constructor(
+    picsHeight: number,
+    leftPrimary?: Coordinate,
+    rightPrimary?: Coordinate,
+    leftSecond?: Coordinate,
+    rightSecond?: Coordinate) {
+    this.picsHeight = picsHeight;
     const leftVertex: Coordinate = this.calculVertex(leftPrimary, rightPrimary, leftSecond);
     const rightVertex: Coordinate =  this.calculVertex(rightPrimary, leftPrimary, rightSecond);
     const moyenne = (coordinates: Coordinate[]) => {
       let x = 0;
       let y = 0;
       let z = 0;
-      for (const coordinate of coordinates)
-      {
+      for (const coordinate of coordinates) {
         x += coordinate.x;
         y += coordinate.y;
         z += coordinate.z;
@@ -71,8 +73,10 @@ export class OrigamiModule {
     this.kp = moyenne([rightPrimary, leftVertex, leftSecond]);
     this.kn = moyenne([leftPrimary, rightVertex, rightSecond]);
   }
-  calculVertex(A: Coordinate, B: Coordinate, C: Coordinate){
-    const length = 0.35 + (this.vertexDistance / 200);
-    return new Coordinate(((A.x + B.x + C.x) * length), ((A.y + B.y + C.y) * length), ((A.z + B.z + C.z) * length));
+  calculVertex(A: Coordinate, B: Coordinate, C: Coordinate) {
+    const length = 1 + (this.picsHeight / 80);
+    const center = {x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3, z: (A.z + B.z + C.z) / 3};
+
+    return new Coordinate(center.x * length, center.y * length, center.z * length);
   }
 }

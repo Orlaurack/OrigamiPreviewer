@@ -21,7 +21,7 @@
           [solidSettingsService]="solidSettingsService"
           [solidModuleService]="solidModuleService"
           [mode]="mode"
-
+          [updatedSolid]="updatedSolid"
           (document:mousemove)="canvas_screen.mouseMove($event)"
           (document:mouseup)="canvas_screen.mouseUp($event)"
           #canvas_screen>
@@ -49,7 +49,8 @@
             [mobileScreen]="isMobileBrowser"
             [svgMode]="svgMode"
             [gradientGenerator]="gradientGenerator"
-            (changeMode)="changeMode($event);" >
+            (changeMode)="changeMode($event);"
+            (updateSolid)="updateSolid();" >
           </app-op-settings>
           <app-op-gradient-generator
             *ngIf="gradientGenerator.visible"

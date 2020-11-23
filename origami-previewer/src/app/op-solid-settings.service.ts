@@ -1,4 +1,7 @@
 import { Injectable, Input, Output } from '@angular/core';
+import { OpIcosaedreService } from './op-icosaedre.service';
+import { OpIcosaedre120Service } from './op-icosaedre-120.service';
+import { OpIcosaedre270Service } from './op-icosaedre-270.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +16,7 @@ export class SolidSettingsService {
   @Output() screenHeight: number;
   @Output() picHeight: number;
   @Output() antiAliasing: boolean;
+  @Output() solidService: string;
   @Input() isMobile: boolean;
 
 
@@ -25,6 +29,7 @@ export class SolidSettingsService {
     this.definition = 500;
     this.picHeight = 100;
     this.screenHeight = 250;
-    this.antiAliasing= false;
+    this.antiAliasing = false;
+    this.solidService = 'icosaedre';
   }
 }

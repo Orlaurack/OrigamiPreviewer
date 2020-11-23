@@ -17,7 +17,7 @@ export class OpScreenComponent implements OnInit {
   rotation: RotationService;
   intervalAutoRotation: any;
   solidStarService: SolidStarService;
-  solid: {};
+  solid: any[];
   paths: {d: string, stroke: string, stroke_width: number, fill: string, data_z: number}[] = [];
   mouseDowned = false;
   mouse: {x, y} = {x: 3, y: 0};
@@ -36,8 +36,8 @@ export class OpScreenComponent implements OnInit {
   constructor(colorManagerService: ColorManagerService, solidSettingsService: SolidSettingsService) {
     this.colorManagerService = colorManagerService;
     this.solidSettingsService = solidSettingsService;
-    this.solidStarService = new SolidStarService(solidSettingsService);
-    this.solid = this.solidStarService.generateSolid();
+    this.solidStarService = new SolidStarService(this.solidSettingsService);
+    this.solid = this.solidStarService.generateSolid(100);
     this.paths = [];
     this.second = 1000;
     this.mode = 'preview';
@@ -47,7 +47,7 @@ export class OpScreenComponent implements OnInit {
     this.rotation = new RotationService(this.solidSettingsService);
     this.intervalAutoRotation = setInterval(() => {
 
-      if (this.mouseDowned){
+      if (this.mouseDowned) {
         this.mouse.x *= 0.3;
         this.mouse.y *= 0.3;
       } else {
@@ -62,7 +62,6 @@ export class OpScreenComponent implements OnInit {
 
 
           const markingFold = new steps().steps[this.solidModuleService.index]['marking-fold'];
-          console.log(markingFold);
           this.solidModuleService.controls.completion +=
             this.solidModuleService.controls.speed /
             (markingFold ? 10.4 : 5);
@@ -80,7 +79,7 @@ export class OpScreenComponent implements OnInit {
     }, this.second / this.solidSettingsService.fps);
   }
 
-  mouseDown(){
+  mouseDown() {
     this.mouseDowned = true;
   }
 
@@ -95,27 +94,27 @@ export class OpScreenComponent implements OnInit {
     this.mouseDowned = true;
   }
   touchMove(e) {
-    if (this.mouseDowned){
+    if (this.mouseDowned) {
       this.touchMemLastMove = {x: 5 * (e.touches[0].clientX - this.touchMem.x), y: 5 * (e.touches[0].clientY - this.touchMem.y)};
       this.touchMem = {x: e.touches[0].clientX, y: e.touches[0].clientY};
       this.mouse = this.touchMemLastMove;
     }
   }
-  touchEnd(e){
+  touchEnd(e) {
     this.mouseDowned = false;
 
   }
 
-  mouseUp(e){
+  mouseUp(e) {
     this.mouseDowned = false;
   }
 
-  changeScreenType(to){
+  changeScreenType(to) {
     this.mode = to;
-    if (to === 'preview'){
-      this.solid = this.solidStarService.generateSolid();
-    }else if (to === 'learn'){
-      if (this.firstLearn){
+    if (to === 'preview') {
+      this.solid = this.solidStarService.generateSolid(100);
+    } else if (to === 'learn') {
+      if (this.firstLearn) {
         this.firstLearn = false;
         this.mouse.y = 3;
         this.mouse.x = 0;

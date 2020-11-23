@@ -1,79 +1,34 @@
-import { Injectable, Input, ɵConsole } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Coordinate } from 'src/app/op-coordinate';
-import { OrigamiModule } from 'src/app/op-module';
+import { OpIcosaedre120Service } from './op-icosaedre-120.service';
+import { OpIcosaedre270Service } from './op-icosaedre-270.service';
+import { OpIcosaedreService } from './op-icosaedre.service';
+import { OpOctaedreService } from './op-octoadre.service';
 import { SolidSettingsService } from './op-solid-settings.service';
+import { OpTetraedreService } from './op-tetraedre.service';
 
 @Injectable()
 export class SolidStarService {
 
   readonly size: number;
   solidSettingsService: SolidSettingsService;
+  solidService: OpIcosaedreService | OpIcosaedre120Service | OpIcosaedre270Service;
 
   constructor(solidSettingsService: SolidSettingsService) {
     this.solidSettingsService = solidSettingsService;
     this.size = 1;
+    this.updateSolid(this.solidSettingsService.solidService);
   }
 
-  getIcosaedre(){
-    const distance = (((Math.sqrt(5) + 1) / 2) * 200 / 2) * this.size;
-    const demiscale = (200 / 2) * this.size;
-    return {
-        A: new Coordinate(0, -demiscale, -distance),
-        B: new Coordinate(0, demiscale, -distance),
-        C: new Coordinate(-distance, 0, -demiscale),
-        D: new Coordinate(-distance, 0, demiscale),
-        E: new Coordinate(demiscale, -distance, 0),
-        F: new Coordinate(demiscale, distance, 0),
-        G: new Coordinate(distance, 0, -demiscale),
-        H: new Coordinate(-demiscale, distance, 0),
-        I: new Coordinate(-demiscale, -distance, 0),
-        J: new Coordinate(0, demiscale, distance),
-        K: new Coordinate(0, -demiscale, distance),
-        L: new Coordinate(distance, 0, demiscale)
-    };
+  generateSolid(picHeight: number) {
+    return this.solidService.getIcosaedre(this.size, picHeight);
   }
 
-  generateSolid(){
-    const i = this.getIcosaedre();
-    return {
-      1: new OrigamiModule(i.A, i.B, i.C, i.G),
-      2: new OrigamiModule(i.A, i.C, i.I, i.B),
-      3: new OrigamiModule(i.B, i.C, i.A, i.H),
-      4: new OrigamiModule(i.C, i.H, i.D, i.B),
-      5: new OrigamiModule(i.B, i.H, i.C, i.F),
-      6: new OrigamiModule(i.F, i.H, i.B, i.J),
-      7: new OrigamiModule(i.B, i.F, i.H, i.G),
-      8: new OrigamiModule(i.F, i.G, i.L, i.B),
-      9: new OrigamiModule(i.B, i.G, i.F, i.A),
-      10: new OrigamiModule(i.A, i.G, i.B, i.E),
-      11: new OrigamiModule(i.E, i.G, i.A, i.L),
-      12: new OrigamiModule(i.A, i.E, i.G, i.I),
-      13: new OrigamiModule(i.A, i.I, i.E, i.C),
-      14: new OrigamiModule(i.E, i.I, i.K, i.A),
-      15: new OrigamiModule(i.C, i.I, i.A, i.D),
-      16: new OrigamiModule(i.D, i.I, i.C, i.K),
-      17: new OrigamiModule(i.C, i.D, i.I, i.H),
-      18: new OrigamiModule(i.D, i.H, i.J, i.C),
-      19: new OrigamiModule(i.D, i.J, i.K, i.H),
-      20: new OrigamiModule(i.H, i.J, i.D, i.F),
-      21: new OrigamiModule(i.F, i.J, i.H, i.L),
-      22: new OrigamiModule(i.J, i.L, i.K, i.F),
-      23: new OrigamiModule(i.F, i.L, i.J, i.G),
-      24: new OrigamiModule(i.G, i.L, i.F, i.E),
-      25: new OrigamiModule(i.E, i.L, i.G, i.K),
-      26: new OrigamiModule(i.K, i.L, i.E, i.J),
-      27: new OrigamiModule(i.E, i.K, i.L, i.I),
-      28: new OrigamiModule(i.I, i.K, i.E, i.D),
-      29: new OrigamiModule(i.J, i.K, i.D, i.L),
-      30: new OrigamiModule(i.D, i.K, i.I, i.J),
-    };
-  }
-
-  generateSVG(paths, solid: {}, solidSettingsService?, colorManagerService?){
+  generateSVG(paths, solid: {}, solidSettingsService?, colorManagerService?) {
 
 
     const insertWithZ = (objects: {d: string, stroke: string, stroke_width: number, fill: string, data_z: number}[]) => {
-      for (const object of objects){
+      for (const object of objects) {
         let stop = true;
         let index = 0;
         while (stop){
@@ -156,7 +111,7 @@ export class SolidStarService {
     }
     return paths;
   }
-  generateCanvas(ctx, paths, solid: {}, solidSettingsService?, colorManagerService?){
+  generateCanvas(ctx, paths, solid: any[], solidSettingsService?, colorManagerService?){
     const getCoord = (coordinate: Coordinate) => {
       const digits = Math.pow(10, 3);
       const project = (v) => {
@@ -199,10 +154,13 @@ export class SolidStarService {
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = solidSettingsService.definition / 300;
     let i = 0;
+    const repetition = solid.length / 30;
     for (const s in solid) {
       if (solid.hasOwnProperty(s)) {
         const module = solid[s];
-        const color = colorManagerService.showedColors[i++].color;
+        let color = '';
+        color = colorManagerService.showedColors[Math.floor((i++) / repetition)].color;
+
 
         let c = {x: 0, y: 0};
         draw(() => {
@@ -339,5 +297,29 @@ export class SolidStarService {
     for (const action of list){
       action.action();
     }
+  }
+
+  updateSolid(solidService: string) {
+    switch (solidService) {
+      case 'tetraedre':
+        this.solidService = new OpTetraedreService(this.solidSettingsService);
+        break;
+      case 'octaedre':
+        this.solidService = new OpOctaedreService(this.solidSettingsService);
+        break;
+      case 'icosaedre':
+        this.solidService = new OpIcosaedreService(this.solidSettingsService);
+        break;
+      case 'icosaedre120':
+        this.solidService = new OpIcosaedre120Service(this.solidSettingsService);
+        break;
+      case 'icosaedre270':
+        this.solidService = new OpIcosaedre270Service(this.solidSettingsService);
+        break;
+      default:
+        this.solidService = new OpIcosaedreService(this.solidSettingsService);
+        break;
+    }
+    this.generateSolid(this.solidSettingsService.picHeight);
   }
 }

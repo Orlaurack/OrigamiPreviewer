@@ -1,6 +1,4 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { UrlHandlingStrategy } from '@angular/router';
-import { AttachSession } from 'protractor/built/driverProviders';
 import { ColorManagerService } from './op-color-manager.service';
 import { SolidModuleService } from './op-solid-module.service';
 import { SolidSettingsService } from './op-solid-settings.service';
@@ -29,14 +27,15 @@ export class AppComponent {
   isMobileBrowser: boolean;
   svgMode: boolean;
   mode: string;
-a: string;
+  a: string;
+  updatedSolid = 0;
   @Output() mouseMove = new EventEmitter<any>();
 
-  constructor(){
+  constructor() {
     this.isMobileBrowser = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS')
       .test(navigator.userAgent);
     this.isMobileBrowser = true;
-    if (this.isMobileBrowser){
+    if (this.isMobileBrowser) {
       this.svgMode = false;
     } else {
       this.svgMode = true;
@@ -50,12 +49,18 @@ a: string;
     this.showedColors = this.colorManagerService.showedColors;
   }
 
-  onMouseMove(event){
+  onMouseMove(event) {
     this.mouseEvent = event;
     this.mouseMove.emit(this.mouseEvent);
   }
 
-  changeMode(to){
+  changeMode(to) {
     this.mode = to;
+  }
+
+  updateSolid() {
+    // this.colorManagerService.changeModuleNumber(this.solidModuleService.length);
+console.log(this.solidSettingsService.solidService);
+    this.updatedSolid ++;
   }
 }

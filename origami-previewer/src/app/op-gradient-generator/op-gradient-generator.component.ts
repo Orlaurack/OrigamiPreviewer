@@ -19,8 +19,8 @@ export class OpGradientGeneratorComponent implements OnInit {
 
   }
 
-  generate(){
-    const solid = new SolidStarService(new SolidSettingsService()).getIcosaedre();
+  /*generate(){
+    const solid = new SolidStarService(new SolidSettingsService()).getSimpleSolid();
     const mp = (a, b) => ({x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, z: (a.z + b.z) / 2});
     const coords = [
       mp(solid.A, solid.B), mp(solid.A, solid.C), mp(solid.B, solid.C), mp(solid.C, solid.H), mp(solid.B, solid.H), mp(solid.F, solid.H),
@@ -111,7 +111,7 @@ export class OpGradientGeneratorComponent implements OnInit {
       this.colorManagerService.storedColors[i].color = calculeColor(coord);
       i++;
     }
-  }
+  }*/
 
   updateSelected($event){
     this.colors[this.active] = $event;

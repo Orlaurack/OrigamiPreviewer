@@ -5,6 +5,7 @@ import { Meta, MetaDefinition } from '@angular/platform-browser';
 import { ColorManagerService } from '../op-color-manager.service';
 import { RotationService } from '../op-rotation.service';
 import { OpUrlManagerService } from '../op-url-manager.service';
+import {  } from '../op-icosaedre.service';
 
 @Component({
   selector: 'app-op-settings',
@@ -15,6 +16,7 @@ export class OpSettingsComponent {
 
   meta: Meta;
   @Output() changeMode: any = new EventEmitter<string>();
+  @Output() updateSolid: any = new EventEmitter<void>();
 
   @Input() gradientGenerator: any;
   @Input() mode: string;
@@ -23,17 +25,43 @@ export class OpSettingsComponent {
   @Input() urlManagerService: OpUrlManagerService;
   @Input() mobileScreen: boolean;
   @Input() svgMode: boolean;
+
+  solids: {name: string, value: string }[];
+  colorValid = '#00ff00';
+  colorInvalid = '#ff0000';
   rotationService: RotationService;
   test = 0;
 
   constructor() {
     this.rotationService = new RotationService(this.solidSettingsService);
+    this.solids = [
+      {
+        name: 'tetraedre',
+        value: 'Tetraèdre'
+      },
+      {
+        name: 'octaedre',
+        value: 'Octaèdre'
+      },
+      {
+        name: 'icosaedre',
+        value: 'Icosaèdre'
+      },
+      {
+        name: 'icosaedre120',
+        value: 'Icosaèdre 2 (4 * 30)'
+      },
+      {
+        name: 'icosaedre270',
+        value: 'Icosaèdre 3 (9 * 30)'
+      }
+    ];
   }
 
-  change(){
-  }
+  change() {}
 
-  saveSVG(){
+
+  saveSVG() {
     const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
       '<?xml version="1.0" standalone="no"?>\r\n' + new XMLSerializer().serializeToString(
         document.getElementById('svg')
@@ -47,11 +75,11 @@ export class OpSettingsComponent {
     element.remove();
   }
 
-  savePNG(){
+  savePNG() {
     saveSvgAsPng(document.getElementById('svg'), 'origami_preview.png');
   }
 
-  sendToWhatsApp(){
+  sendToWhatsApp() {
     // todo online feature
     const definitions: MetaDefinition[] =
       [
@@ -86,7 +114,7 @@ export class OpSettingsComponent {
     element.remove();
   }
 
-  rngColors(){
+  rngColors() {
     for (const inputColor of this.colorManagerService.inputColors) {
       let color = Math.floor(Math.random() * 16777215).toString(16);
       while (color.length < 6) { color = '0' + color; }
@@ -94,17 +122,17 @@ export class OpSettingsComponent {
     }
   }
 
-  learn(){
+  learn() {
     this.mode = 'learn';
     this.changeMode.emit('learn');
   }
 
-  preview(){
+  preview() {
     this.mode = 'preview';
     this.changeMode.emit('preview');
   }
 
-  clipboard(element: string){
+  clipboard(element: string) {
     const el = document.createElement('textarea');
     el.value = element;
     el.setAttribute('readonly', '');
@@ -115,7 +143,16 @@ export class OpSettingsComponent {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
-  showGradientGenerator(){
+  showGradientGenerator() {
     this.gradientGenerator.visible = !this.gradientGenerator.visible;
+  }
+
+  changeSolid(e) {
+
+    if (isNaN(e.value)) {
+      this.solidSettingsService.solidService = e.value;
+    }
+    console.log('emit');
+    this.updateSolid.emit();
   }
 }

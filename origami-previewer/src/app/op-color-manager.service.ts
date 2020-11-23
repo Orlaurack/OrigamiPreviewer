@@ -49,9 +49,12 @@ export class ColorManagerService {
   @Input() showedColors: {color: string}[] = [];
   @Input() inputColors: {color: string}[] = [];
 
+  moduleNumber: number;
+
 
 
   constructor() {
+    this.moduleNumber = 30;
     this.SHEMAS = {
       unic1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       grad2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
@@ -95,8 +98,7 @@ export class ColorManagerService {
                          '#A6E63F', '#E6BF58', '#BFA618', '#BF5818', '#E63F58', '#A6183F',
                          '#58183F', '#7F007F', '#183F58', '#183FA6', '#007F7F', '#18BFA6',
                          '#3FA6E6', '#58E6BF', '#A6E6BF', '#BFA6E6', '#E6BFA6', '#FF7F7F',
-                         '#E63FA6', '#BF58E6', '#A618BF', '#5818BF', '#7F7FFF', '#3F58E6'])
-    {
+                         '#E63FA6', '#BF58E6', '#A618BF', '#5818BF', '#7F7FFF', '#3F58E6']) {
       this.storedColors.push({color});
       this.showedColors.push({color});
     }
@@ -107,38 +109,38 @@ export class ColorManagerService {
     this.validNumbers = [];
   }
 
-  update(){
+  update() {
 
     this.validLayouts = [];
     this.validNumbers = [];
-    for (const shemaName of Object.keys(this.SHEMAS)){
-      if (shemaName.includes(this.layout)){
+    for (const shemaName of Object.keys(this.SHEMAS)) {
+      if (shemaName.includes(this.layout)) {
         this.validNumbers.push(parseInt(shemaName.replace(this.layout, ''), 10));
       }
-      if (shemaName.includes(this.number.toString())){
+      if (shemaName.includes(this.number.toString())) {
         this.validLayouts.push(shemaName.replace(this.number.toString(), ''));
       }
     }
 
-    if (this.layout + this.number in this.SHEMAS){
+    if (this.layout + this.number in this.SHEMAS) {
       this.shemaName = this.layout + this.number;
       this.shema = this.SHEMAS[this.shemaName];
 
       this.inputColors = [];
-      for (let index = 0; index < this.number; index++){
+      for (let index = 0; index < this.number; index++) {
         this.inputColors.push(this.storedColors[index]);
       }
     }
     let i = 0;
-    for (const index of this.shema){
+    for (const index of this.shema) {
       this.showedColors[i++] = this.inputColors[index];
     }
     this.calculBackgroundColor();
   }
 
-  checkShema(shema: string){return this.SHEMAS[shema] !== undefined; }
+  checkShema(shema: string) {return this.SHEMAS[shema] !== undefined; }
 
-  calculBackgroundColor(){
+  calculBackgroundColor() {
     const bk: {r: number, g: number, b: number}[] = this.showedColors.map(
       (color) => (
         {
@@ -151,11 +153,17 @@ export class ColorManagerService {
     let r = 0;
     let g = 0;
     let b = 0;
-    for (const c of bk){
+    for (const c of bk) {
       r += c.r;
       g += c.g;
       b += c.b;
     }
-    this.backgroundColor = `#${Math.min(Math.round(r / bk.length) + 64, 255).toString(16)}${Math.min(Math.round(g / bk.length) + 64, 255).toString(16)}${Math.min(Math.round(b / bk.length) + 64, 255).toString(16)}`;
+    this.backgroundColor = `#${
+      Math.min(Math.round(r / bk.length) + 64, 255).toString(16)}${
+      Math.min(Math.round(g / bk.length) + 64, 255).toString(16)}${
+      Math.min(Math.round(b / bk.length) + 64, 255).toString(16)}`;
+  }
+  changeModuleNumber(moduleNumber: number) {
+    this.moduleNumber = moduleNumber;
   }
 }
