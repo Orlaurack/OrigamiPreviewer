@@ -77,6 +77,31 @@ export class OrigamiModule {
     const length = 1 + (this.picsHeight / 80);
     const center = {x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3, z: (A.z + B.z + C.z) / 3};
 
+
+    /*
+    A B C -> D = {x:(A.x+B.x+C.x)/3, y:(A.y+B.y+C.y)/3, z:(A.z+B.z+C.z)/3}
+
+    p = {a, b, c, d}:
+
+    AB = (b.x-a.x, b.y-a.y, b.z-a.z)
+    AC = (c.x-a.x, c.y-a.y, c.z-a.z)
+
+    L1 = {a: AB.x, b: AB.y, c: AB.z}
+    L2 = {a: AC.x, C: AC.y, c: AC.z}
+
+    rA = L1.a / L2.a
+    rB = L1.b / L2.b
+
+    n = {a: (L1.c-(rB*L2.c)) / (-(L1.a-(rB*L2.a))), b: (L1.c-(rA*L2.c)) / (-(L1.b-(rA*L2.b))), c: 1, d:0};
+
+    n.d = (n.a*D.x)+(n.b*D.y)+(n.c*D.z);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 plan de ABC
+
+    suite au prochain épisode
+    */
+
+
     return new Coordinate(center.x * length, center.y * length, center.z * length);
   }
 }

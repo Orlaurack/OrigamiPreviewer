@@ -94,11 +94,40 @@ export class ColorManagerService {
       {name: 'spca', value: 'Spécial'}
     ];
     this.NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 30];
-    for (const color of ['#7F7F00', '#3F5818', '#3FA618', '#18BF58', '#58E63F', '#7FFF7F',
-                         '#A6E63F', '#E6BF58', '#BFA618', '#BF5818', '#E63F58', '#A6183F',
-                         '#58183F', '#7F007F', '#183F58', '#183FA6', '#007F7F', '#18BFA6',
-                         '#3FA6E6', '#58E6BF', '#A6E6BF', '#BFA6E6', '#E6BFA6', '#FF7F7F',
-                         '#E63FA6', '#BF58E6', '#A618BF', '#5818BF', '#7F7FFF', '#3F58E6']) {
+    for (const color of
+      [
+        "#1f9739",
+        "#55770e",
+        "#2a4c3b",
+        "#561557",
+        "#203582",
+        "#3b3ac8",
+        "#0f71ac",
+        "#2ab3c5",
+        "#0fad7f",
+        "#3ad953",
+        "#6ff97d",
+        "#7fe238",
+        "#90a60d",
+        "#c5c638",
+        "#9b5b0f",
+        "#d64d3b",
+        "#9b1f3c",
+        "#910783",
+        "#c627ad",
+        "#811ec8",
+        "#705af3",
+        "#ab89f2",
+        "#65a5f1",
+        "#65e1c4",
+        "#aaeba9",
+        "#d6b4c5",
+        "#e0cb7e",
+        "#f18f54",
+        "#e169c7",
+        "#f15381"
+      ]
+                         ) {
       this.storedColors.push({color});
       this.showedColors.push({color});
     }
