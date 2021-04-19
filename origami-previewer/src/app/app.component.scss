@@ -1,6 +1,7 @@
 @import "../styles.scss";
 
 :host{
+
   div{
     position: relative;
     display: flex;
@@ -48,5 +49,16 @@
   #screen{
     box-shadow: 0px 2px 10px;
     z-index: 1;
+  }
+  .onlyScreen{
+    &#screen{
+      box-shadow: none;
+      &>*{
+        width: auto !important;
+        height: auto !important;
+        max-width: none !important;
+      }
+    }
+
   }
 }

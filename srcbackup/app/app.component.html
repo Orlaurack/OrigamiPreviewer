@@ -1,0 +1,68 @@
+<app-op-background [colorManagerService]="colorManagerService" [lightMode]="isMobileBrowser" #background>
+    <div id="container">
+      <div id="screen">
+        <app-op-screen
+          *ngIf="svgMode"
+          [colorManagerService]="colorManagerService"
+          [solidSettingsService]="solidSettingsService"
+          [solidModuleService]="solidModuleService"
+          (mouseMove)="mouseEvent"
+
+          (document:mousemove)="screen.mouseMove($event)"
+          (document:mouseup)="screen.mouseUp($event)"
+          #screen>
+        </app-op-screen>
+        <app-op-canvas-screen
+          *ngIf="!svgMode"
+          [style.height]="solidSettingsService.screenHeight+'px'"
+          [style.width]="solidSettingsService.screenHeight+'px'"
+          [style.max-width]="solidSettingsService.screenHeight+'px'"
+          [colorManagerService]="colorManagerService"
+          [solidSettingsService]="solidSettingsService"
+          [solidModuleService]="solidModuleService"
+          [mode]="mode"
+          [updatedSolid]="updatedSolid"
+          (document:mousemove)="canvas_screen.mouseMove($event)"
+          (document:mouseup)="canvas_screen.mouseUp($event)"
+          #canvas_screen>
+        </app-op-canvas-screen>
+      </div>
+      <div id="controls">
+        <app-op-color-selection
+          *ngIf="mode === 'preview'"
+          [colorManagerService]="colorManagerService">
+        </app-op-color-selection>
+        <div id="grid">
+          <app-op-learn-module
+            *ngIf="mode === 'learn'"
+            [solidSettingsService]="solidSettingsService"
+            [solidModuleService]="solidModuleService">
+          </app-op-learn-module>
+          <app-op-pattern
+            *ngIf="mode === 'preview'"
+            [colorManagerService]="colorManagerService">
+          </app-op-pattern>
+          <app-op-settings
+            [solidSettingsService]="solidSettingsService"
+            [colorManagerService]="colorManagerService"
+            [mode]="mode"
+            [mobileScreen]="isMobileBrowser"
+            [svgMode]="svgMode"
+            [gradientGenerator]="gradientGenerator"
+            [canvas]="canvasNativeElement"
+            [ctx]="contextNativeElement"
+
+            (changeMode)="changeMode($event);"
+            (updateSolid)="updateSolid();" >
+          </app-op-settings>
+          <app-op-gradient-generator
+            *ngIf="gradientGenerator.visible"
+            [colorManagerService]="colorManagerService"
+          >
+          </app-op-gradient-generator>
+        </div>
+      </div>
+      <div id="filter"></div>
+    </div>
+
+</app-op-background>

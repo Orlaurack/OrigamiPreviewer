@@ -1,0 +1,52 @@
+<div class="card">
+  <b>Étape {{solidModuleService.index+1}}</b>
+  <!--span>{{solidModuleService.solid.text}}</!--span-->
+</div>
+<br>
+<div class="card">
+  <b>Apprendre</b>
+  <div id="player_control">
+
+    <button (click)="previous()">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 24l-18-12 18-12v24zm-19-24v24h-1v-24h1zm2.803 12l15.197 10.132v-20.263l-15.197 10.131z"/></svg>
+    </button>
+    <button (click)="pause()" *ngIf="!solidModuleService.controls.paused">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M10 24h-6v-24h6v24zm10 0h-6v-24h6v24zm-11-23h-4v22h4v-22zm10 0h-4v22h4v-22z"/></svg>
+    </button>
+    <button (click)="play()" *ngIf="solidModuleService.controls.paused">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M24.56 12l-21.12 11.52v-23.04l21.12 11.52zm-20.16 9.902 18.156-9.902-18.156-9.902v19.805z"/></svg>
+    </button>
+    <button (click)="next()">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M2 24l18-12-18-12v24zm19-24v24h1v-24h-1zm-2.803 12l-15.197 10.132v-20.263l15.197 10.131z"/></svg>
+    </button>
+    <button (click)="auto_play()" *ngIf="solidModuleService.controls.auto_play">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 24L18 12L0 0V24ZM6 0L24 12L6 24L5.5 23.3L22.5 12L5.5 0.7L6 0ZM16.197 12L1 22.132V1.869L16.197 12Z" fill="black"/>
+      </svg>
+    </button>
+    <button (click)="auto_play()" *ngIf="!solidModuleService.controls.auto_play">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 24L18 12L0 4.76837e-07V24ZM23 4.76837e-07L24 0V24L23 24V12L20 12V24L19 24V3.7998e-06H20V12L23 12V4.76837e-07ZM16.197 12L1 22.132V1.869L16.197 12Z" fill="black"/>
+      </svg>
+    </button>
+  </div>
+	<span (dblclick)="solidModuleService.controls.speed = 1">Vitesse: <mat-slider
+		thumbLabel
+		tickInterval="1"
+		min="0.1"
+		max="10"
+		step="0.1"
+		[value]="solidModuleService.controls.speed"
+		(input)="solidModuleService.controls.speed = $event.value">
+  </mat-slider></span>
+  <br>
+	<span (dblclick)="solidModuleService.controls.completion = 0">Animation: <mat-slider
+		thumbLabel
+		tickInterval="10"
+		min="0"
+		max="100"
+		step="1"
+		[value]="solidModuleService.controls.completion"
+		(input)="solidModuleService.controls.completion = $event.value">
+	</mat-slider></span>
+</div>

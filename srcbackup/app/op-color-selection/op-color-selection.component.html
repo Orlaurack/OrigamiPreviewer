@@ -1,0 +1,21 @@
+<app-op-color-picker
+  [active]="active !== undefined"
+  [color]="selectedColor"
+  (colorChanged)="updateSelected($event)"
+  (closeClick)="close()"
+  #colorPicker >
+</app-op-color-picker>
+<div class="card">
+  <div
+    class="cp"
+    *ngFor="let c of colorManagerService.inputColors; let i = index"
+
+    [style.background]="c.color"
+    [style.transform]="'rotate('+rotates[i]+'deg)'"
+    (cpToggleChange)="removeFocusColor($event)"
+    (click)="changeFocusedColor($event, i, colorPicker)"
+    (colorPickerChange)="changeColor(i, $event)"
+    (cpPresetColorsChange)="addPreset($event)">
+  </div>
+</div>
+

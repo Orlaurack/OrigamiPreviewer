@@ -1,0 +1,38 @@
+
+@import "../../styles.scss";
+
+:host{
+  display: contents;
+  mat-radio-group{
+    mat-radio-button {
+      display: flex;
+      flex-direction: row;
+      margin: 20px auto;
+      width: auto;
+      text-align: center;
+    }
+  }
+
+  #layouts{
+    mat-radio-button {
+      width: 100%;
+      margin: 5px;
+    }
+  }
+
+  #numbers{
+    b{
+      width:100%;
+    }
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    max-width: 180px;
+    text-align: center;
+    mat-radio-button {
+      width: 50px;
+      margin: 5px;
+    }
+  }
+
+}

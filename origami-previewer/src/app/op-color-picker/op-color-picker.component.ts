@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { StringifyOptions } from 'querystring';
+import { ColorManagerService } from '../op-color-manager.service';
 
 @Component({
   selector: 'app-op-color-picker',
@@ -18,6 +19,7 @@ export class OpColorPickerComponent implements OnInit {
   @Output() colorChanged = new EventEmitter<string>();
   @Output() closeClick = new EventEmitter<boolean>();
   @Input() active: boolean;
+  @Input() colorManagerService : ColorManagerService;
 
   constructor() {
   }
@@ -46,7 +48,14 @@ export class OpColorPickerComponent implements OnInit {
     this.updateGradient();
     this.colorChanged.next(this.color);
   }
+  random(){
+    let c = '#'+Math.floor(Math.random()*16777215).toString(16);
+    console.log(c);
+    this.setColor(c);
+    this.updateColor();
 
+    this.colorManagerService.update();
+  }
   close(){
     this.closeClick.next(true);
   }

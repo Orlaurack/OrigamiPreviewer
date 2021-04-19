@@ -1,4 +1,31 @@
-<app-op-background [colorManagerService]="colorManagerService" [lightMode]="isMobileBrowser" #background>
+<div *ngIf="onlyScreen" id="screen" class="onlyScreen">
+  <app-op-screen
+    *ngIf="svgMode"
+    [colorManagerService]="colorManagerService"
+    [solidSettingsService]="solidSettingsService"
+    [solidModuleService]="solidModuleService"
+    (mouseMove)="mouseEvent"
+
+    (document:mousemove)="screen.mouseMove($event)"
+    (document:mouseup)="screen.mouseUp($event)"
+    #screen>
+  </app-op-screen>
+  <app-op-canvas-screen
+    *ngIf="!svgMode"
+    [style.height]="solidSettingsService.screenHeight+'px'"
+    [style.width]="solidSettingsService.screenHeight+'px'"
+    [style.max-width]="solidSettingsService.screenHeight+'px'"
+    [colorManagerService]="colorManagerService"
+    [solidSettingsService]="solidSettingsService"
+    [solidModuleService]="solidModuleService"
+    [mode]="mode"
+    [updatedSolid]="updatedSolid"
+    (document:mousemove)="canvas_screen.mouseMove($event)"
+    (document:mouseup)="canvas_screen.mouseUp($event)"
+    #canvas_screen>
+  </app-op-canvas-screen>
+</div>
+<app-op-background *ngIf="!onlyScreen" [colorManagerService]="colorManagerService" [lightMode]="isMobileBrowser" #background>
     <div id="container">
       <div id="screen">
         <app-op-screen

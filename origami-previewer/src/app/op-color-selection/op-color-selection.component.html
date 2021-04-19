@@ -1,6 +1,7 @@
 <app-op-color-picker
   [active]="active !== undefined"
   [color]="selectedColor"
+  [colorManagerService]="colorManagerService"
   (colorChanged)="updateSelected($event)"
   (closeClick)="close()"
   #colorPicker >

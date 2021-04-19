@@ -111,7 +111,7 @@ export class SolidStarService {
     }
     return paths;
   }
-  generateCanvas(ctx, paths, solid: any[], solidSettingsService?, colorManagerService?){
+  generateCanvas(ctx, paths, solid: any[], solidSettingsService?, colorManagerService?, test?:boolean){
     const getCoord = (coordinate: Coordinate) => {
       const digits = Math.pow(10, 3);
       const project = (v) => {
@@ -154,7 +154,21 @@ export class SolidStarService {
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = solidSettingsService.definition / 300;
     let i = 0;
-    const repetition = solid.length / 30;
+    
+    const repetition = 1;
+    if (test){
+      let to_color = (c, max)=> (Math.round(Math.max(0, Math.min(1,(c+170)/340))*max));
+      colorManagerService.storedColors = [];
+      // console.log('test')
+
+      for(let color of solid.map(c => 'rgb('+ to_color(c.ac.x, 256)+','+to_color(c.ac.y, 256)+','+to_color(c.ac.z, 256)+')')){
+        colorManagerService.storedColors.push({color:color});
+      }
+      // console.log(solid.map(c => '#'+ to_color(c.ac.x)+to_color(c.ac.y)+to_color(c.ac.z)));
+      colorManagerService.update();
+
+
+    }
     for (const s in solid) {
       if (solid.hasOwnProperty(s)) {
         const module = solid[s];

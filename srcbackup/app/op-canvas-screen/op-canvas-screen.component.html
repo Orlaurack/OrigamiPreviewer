@@ -1,0 +1,11 @@
+<canvas
+  #canvas
+  [width]="getDef()"
+  [height]="getDef()"
+  [style.image-rendering]="solidSettingsService.antiAliasing?'optimizequality':'optimizespeed'"
+  (touchstart)="touchStart($event)"
+  (touchmove)="touchMove($event)"
+  (touchend)="touchEnd($event)"
+  (mousedown)="mouseDown()"
+  >
+</canvas>

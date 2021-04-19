@@ -120,6 +120,8 @@ export class OpSettingsComponent {
       while (color.length < 6) { color = '0' + color; }
       inputColor.color = '#' + color;
     }
+    this.colorManagerService.update();
+
   }
 
   learn() {
@@ -145,6 +147,8 @@ export class OpSettingsComponent {
   }
   showGradientGenerator() {
     this.gradientGenerator.visible = !this.gradientGenerator.visible;
+    this.colorManagerService.update();
+
   }
 
   changeSolid(e) {
@@ -152,7 +156,6 @@ export class OpSettingsComponent {
     if (isNaN(e.value)) {
       this.solidSettingsService.solidService = e.value;
     }
-    console.log('emit');
     this.updateSolid.emit();
   }
 }

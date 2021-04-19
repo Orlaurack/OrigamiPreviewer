@@ -5,7 +5,6 @@ import { ColorManagerService } from '../op-color-manager.service';
 import { SolidSettingsService } from '../op-solid-settings.service';
 import { SolidModuleService } from '../op-solid-module.service';
 import { Steps } from '../steps';
-import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 
 
 @Component({
@@ -51,8 +50,9 @@ export class OpCanvasScreenComponent implements OnInit {
     this.mode = 'preview';
     this.updateSolid();
    }
-
+test = false;
   ngOnInit(): void {
+    //setTimeout( ()=>{this.test=true; setTimeout(() => {this.test = false;}, 30);}, 5000);
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.rotation = new RotationService(this.solidSettingsService);
     this.intervalAutoRotation = setInterval(() => {
@@ -93,7 +93,7 @@ export class OpCanvasScreenComponent implements OnInit {
 
       } else if (this.mode === 'preview') {
         this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
-        this.solidStarService.generateCanvas(this.ctx, this.paths, this.solid, this.solidSettingsService, this.colorManagerService);
+        this.solidStarService.generateCanvas(this.ctx, this.paths, this.solid, this.solidSettingsService, this.colorManagerService, this.test);
       }
 
     }, this.second / this.solidSettingsService.fps);
@@ -153,7 +153,6 @@ export class OpCanvasScreenComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.updatedSolid !== undefined) {
-      console.log(this.solidSettingsService.solidService);
       this.solidStarService.updateSolid(this.solidSettingsService.solidService);
       this.updateSolid();
     }

@@ -13,7 +13,7 @@ import { OpUrlManagerService } from './op-url-manager.service';
 
 
 export class AppComponent {
-
+  onlyScreen = true;
   title = 'angular-origami-previewer';
   mouseEvent: any;
   storedColors: {color: string}[] = [];
@@ -60,7 +60,6 @@ export class AppComponent {
 
   updateSolid() {
     // this.colorManagerService.changeModuleNumber(this.solidModuleService.length);
-console.log(this.solidSettingsService.solidService);
     this.updatedSolid ++;
   }
 }

@@ -32,7 +32,9 @@ export class ColorManagerService {
     grav9: number[],
     grav10: number[],
     mixe15: number[],
-    mixe30: number[]
+    mixe30: number[],
+    mixe90: number[],
+    mixe270: number[]
   };
   @Output() readonly LAYOUTS: {name: string, value: string}[];
   @Output() readonly NUMBERS: number[];
@@ -82,6 +84,8 @@ export class ColorManagerService {
       grav10: [3, 2, 4, 6, 7, 9, 8, 6, 5, 1, 2, 0, 0, 0, 1, 3, 5, 8, 7, 9, 9, 8, 7, 4, 3, 5, 1, 2, 6, 4],
       mixe15: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 5, 13, 7, 14, 10, 9, 11, 12, 1, 13, 14, 3, 2, 4, 6, 0, 8],
       mixe30: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+      mixe90: Array.from(Array(90).keys()),
+      mixe270: Array.from(Array(270).keys())
 
     };
     this.LAYOUTS = [
@@ -93,7 +97,7 @@ export class ColorManagerService {
       {name: 'zone', value: 'Zones'},
       {name: 'spca', value: 'Spécial'}
     ];
-    this.NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 30];
+    this.NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 30, 90, 270];
     for (const color of
       [
         "#1f9739",

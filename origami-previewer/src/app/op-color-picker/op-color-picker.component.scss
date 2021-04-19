@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  #close{
+  #close, #random{
     pointer-events: all;
     padding:10px;
     cursor: pointer;
@@ -21,6 +21,10 @@
     height:20px;
     color:black;
     margin-bottom: 20px;
+  }
+
+  #random{
+    right:35px;
   }
   #color-picker-container{
     padding: 20px;
