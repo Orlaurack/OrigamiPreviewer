@@ -30,6 +30,7 @@ export class OpCanvasScreenComponent implements OnInit {
   firstLearn = true;
   readonly second: number;
   moduleNumber: number;
+  firstLoop=true;
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   ctx: CanvasRenderingContext2D;
@@ -39,6 +40,7 @@ export class OpCanvasScreenComponent implements OnInit {
   @Input() solidSettingsService: SolidSettingsService;
   @Input() solidModuleService: SolidModuleService;
   @Input() updatedSolid: number;
+  @Input() page: string;
 
 
   constructor(colorManagerService: ColorManagerService, solidSettingsService: SolidSettingsService) {
@@ -50,7 +52,7 @@ export class OpCanvasScreenComponent implements OnInit {
     this.mode = 'preview';
     this.updateSolid();
    }
-test = false;
+  test = false;
   ngOnInit(): void {
     //setTimeout( ()=>{this.test=true; setTimeout(() => {this.test = false;}, 30);}, 5000);
     this.ctx = this.canvas.nativeElement.getContext('2d');
@@ -92,10 +94,17 @@ test = false;
         );
 
       } else if (this.mode === 'preview') {
-        this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
-        this.solidStarService.generateCanvas(this.ctx, this.paths, this.solid, this.solidSettingsService, this.colorManagerService, this.test);
+        if(this.firstLoop){
+          this.firstLoop=false;
+          this.solid = this.rotation.rotatePoints(this.solid, {x:Math.random()*720, y:Math.random()*720});
+        }
+        else{
+          this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
+        }this.solidStarService.generateCanvas(this.ctx, this.paths, this.solid, this.solidSettingsService, this.colorManagerService, this.test);
       }
-
+      if(!this.solidSettingsService.play){
+        clearInterval(this.intervalAutoRotation);
+      }
     }, this.second / this.solidSettingsService.fps);
   }
 

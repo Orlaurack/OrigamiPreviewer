@@ -17,6 +17,7 @@ export class SolidSettingsService {
   @Output() picHeight: number;
   @Output() antiAliasing: boolean;
   @Output() solidService: string;
+  @Output() play: boolean;
   @Input() isMobile: boolean;
 
 
@@ -31,5 +32,6 @@ export class SolidSettingsService {
     this.screenHeight = 250;
     this.antiAliasing = false;
     this.solidService = 'icosaedre';
+    this.play= false;
   }
 }

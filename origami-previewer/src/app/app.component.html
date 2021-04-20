@@ -1,4 +1,4 @@
-<div *ngIf="onlyScreen" id="screen" class="onlyScreen">
+<div *ngIf="page=='onlyScreen'||page=='image'" id="screen" class="onlyScreen">
   <app-op-screen
     *ngIf="svgMode"
     [colorManagerService]="colorManagerService"
@@ -48,6 +48,7 @@
           [solidSettingsService]="solidSettingsService"
           [solidModuleService]="solidModuleService"
           [mode]="mode"
+          [page]="page"
           [updatedSolid]="updatedSolid"
           (document:mousemove)="canvas_screen.mouseMove($event)"
           (document:mouseup)="canvas_screen.mouseUp($event)"

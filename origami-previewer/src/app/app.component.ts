@@ -29,9 +29,22 @@ export class AppComponent {
   mode: string;
   a: string;
   updatedSolid = 0;
+  page: string;
   @Output() mouseMove = new EventEmitter<any>();
 
+  ngOnInit() {
+    if(window.location.href.includes('screen')){
+      this.page = 'onlyScreen';
+      this.solidSettingsService.play=true;
+    }else if(window.location.href.includes('image')){
+      this.page = 'image';
+    }else{
+      this.page = 'default'
+      this.solidSettingsService.play=true;
+    }
+  }
   constructor() {
+
     this.isMobileBrowser = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS')
       .test(navigator.userAgent);
     this.isMobileBrowser = true;
@@ -45,6 +58,7 @@ export class AppComponent {
     this.solidSettingsService = new SolidSettingsService();
     this.colorManagerService = new ColorManagerService();
     this.urlManagerService = new OpUrlManagerService(this.colorManagerService);
+    console.log('?', this.urlManagerService)
     this.storedColors = this.colorManagerService.storedColors;
     this.showedColors = this.colorManagerService.showedColors;
   }
