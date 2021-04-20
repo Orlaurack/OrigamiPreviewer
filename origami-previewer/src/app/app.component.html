@@ -25,7 +25,7 @@
     #canvas_screen>
   </app-op-canvas-screen>
 </div>
-<app-op-background *ngIf="!onlyScreen" [colorManagerService]="colorManagerService" [lightMode]="isMobileBrowser" #background>
+<app-op-background *ngIf="page=='default'" [colorManagerService]="colorManagerService" [lightMode]="isMobileBrowser" #background>
     <div id="container">
       <div id="screen">
         <app-op-screen
@@ -72,6 +72,7 @@
           <app-op-settings
             [solidSettingsService]="solidSettingsService"
             [colorManagerService]="colorManagerService"
+            [urlManagerService]="urlManagerService"
             [mode]="mode"
             [mobileScreen]="isMobileBrowser"
             [svgMode]="svgMode"
