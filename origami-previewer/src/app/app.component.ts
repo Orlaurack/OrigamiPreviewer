@@ -1,7 +1,11 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { Component, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ColorManagerService } from './op-color-manager.service';
+import { RotationService } from './op-rotation.service';
+import { ScreenService } from './op-screen.service';
 import { SolidModuleService } from './op-solid-module.service';
 import { SolidSettingsService } from './op-solid-settings.service';
+import { SolidStarService } from './op-solid-star.service';
 import { OpUrlManagerService } from './op-url-manager.service';
 
 
@@ -13,6 +17,7 @@ import { OpUrlManagerService } from './op-url-manager.service';
 
 
 export class AppComponent {
+  @ViewChild('canvas_screen') canvas_screen: ElementRef;
   onlyScreen = true;
   title = 'angular-origami-previewer';
   mouseEvent: any;
@@ -23,6 +28,7 @@ export class AppComponent {
   solidSettingsService: SolidSettingsService;
   solidModuleService: SolidModuleService;
   urlManagerService: OpUrlManagerService;
+  screenService: ScreenService;
   gradientGenerator: any = { visible: false };
   isMobileBrowser: boolean;
   svgMode: boolean;
@@ -30,8 +36,8 @@ export class AppComponent {
   a: string;
   updatedSolid = 0;
   page: string;
+  ctx: CanvasRenderingContext2D
   @Output() mouseMove = new EventEmitter<any>();
-
   ngOnInit() {
     if(window.location.href.includes('screen')){
       this.page = 'onlyScreen';
@@ -42,9 +48,11 @@ export class AppComponent {
       this.page = 'default'
       this.solidSettingsService.play=true;
     }
+    
+    
   }
   constructor() {
-
+    this.screenService = new ScreenService();      
     this.isMobileBrowser = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS')
       .test(navigator.userAgent);
     this.isMobileBrowser = true;
@@ -53,12 +61,13 @@ export class AppComponent {
     } else {
       this.svgMode = true;
     }
+    
     this.mode = 'preview';
     this.solidModuleService = new SolidModuleService();
     this.solidSettingsService = new SolidSettingsService();
     this.colorManagerService = new ColorManagerService();
     this.urlManagerService = new OpUrlManagerService(this.colorManagerService);
-    console.log('?', this.urlManagerService)
+    this.ctx = null
     this.storedColors = this.colorManagerService.storedColors;
     this.showedColors = this.colorManagerService.showedColors;
   }

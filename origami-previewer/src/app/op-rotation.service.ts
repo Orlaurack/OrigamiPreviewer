@@ -25,7 +25,7 @@ export class RotationService {
     this.lastRotation[0] = rotation;
     rotation.x = rotation.x * this.solidSettingsService.inertia;
     rotation.y = rotation.y * this.solidSettingsService.inertia;
-
+    
     const rx = (rotation.y) % 360 * (Math.PI / 180) * 1;
     const ry = - (rotation.x) % 360 * (Math.PI / 180) * 1;
 

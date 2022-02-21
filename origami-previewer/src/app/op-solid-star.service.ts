@@ -1,3 +1,4 @@
+import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
 import { Coordinate } from 'src/app/op-coordinate';
 import { OpIcosaedre120Service } from './op-icosaedre-120.service';
@@ -111,7 +112,12 @@ export class SolidStarService {
     }
     return paths;
   }
-  generateCanvas(ctx, paths, solid: any[], solidSettingsService?, colorManagerService?, test?:boolean){
+  generateCanvas(ctx, paths, solid: any[], solidSettingsService?, colorManagerService?, test?:boolean, gifMode=false){
+    if(gifMode){
+      ctx = document.createElement("canvas").getContext('2d');
+      ctx.canvas.width = solidSettingsService.definition;
+      ctx.canvas.height = solidSettingsService.definition;
+    }
     const getCoord = (coordinate: Coordinate) => {
       const digits = Math.pow(10, 3);
       const project = (v) => {
@@ -310,6 +316,9 @@ export class SolidStarService {
     }
     for (const action of list){
       action.action();
+    }
+    if (gifMode){
+      return ctx;
     }
   }
 

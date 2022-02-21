@@ -1,3 +1,4 @@
+
 <mat-radio-group class="card" *ngIf="mode === 'preview'" id="layouts" (change)="changeSolid($event)">
   <b>Solid</b>
   <mat-radio-button *ngFor="let solid of solids" id="layout_{{solid.name}}" colortype="radio" name="layouts" [value]="solid.name" [checked]="solid.name === 'icosaedre'">
@@ -96,6 +97,7 @@
   <button (click)="learn()">Apprendre</button>
   <button (click)="saveSVG()">Enregistrer (SVG)</button>
   <button (click)="savePNG()">Enregistrer (PNG)</button>
+  <button (click)="saveGIF()">Enregistrer (GIF)</button>
   <button (click)="clipboard(urlManagerService.generateUrl())">Générer l'url</button>
   <button (click)="rngColors()">Couleurs aléatoire</button>
   <button (click)="showGradientGenerator()">Générateur de dégradé en 3D</button>

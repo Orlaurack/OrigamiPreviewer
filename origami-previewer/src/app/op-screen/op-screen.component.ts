@@ -46,7 +46,6 @@ export class OpScreenComponent implements OnInit {
   ngOnInit(): void {
     this.rotation = new RotationService(this.solidSettingsService);
     this.intervalAutoRotation = setInterval(() => {
-
       if (this.mouseDowned) {
         this.mouse.x *= 0.3;
         this.mouse.y *= 0.3;
@@ -72,8 +71,8 @@ export class OpScreenComponent implements OnInit {
         const finalSolid = this.solidModuleService.generateFinalSolid();
         */
       } else if (this.mode === 'preview') {
-        this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
-        this.paths = this.solidStarService.generateSVG(this.paths, this.solid, this.solidSettingsService, this.colorManagerService);
+        //this.solid = this.rotation.rotatePoints(this.solid, this.mouse);
+        //this.paths = this.solidStarService.generateSVG(this.paths, this.solid, this.solidSettingsService, this.colorManagerService);
       }
 
     }, this.second / this.solidSettingsService.fps);

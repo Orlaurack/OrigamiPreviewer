@@ -67,6 +67,8 @@ $shadow-color: 5px 0px 5px -2px #000,
               -3px 0px 5px -2px #0008;
 
 body{
+  
+  filter: contrast(80%) brightness(30%) !important;
   padding: 0;
   margin: 0;
   height: 100vh;

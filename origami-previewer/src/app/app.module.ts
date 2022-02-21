@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { Routes, RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
 //import { OpScreenComponent } from './op-screen/op-screen.component';
 import { OpBackgroundComponent } from './op-background/op-background.component';
@@ -15,6 +16,14 @@ import { OpLearnModuleComponent } from './op-learn-module/op-learn-module.compon
 import { OpCanvasScreenComponent } from './op-canvas-screen/op-canvas-screen.component';
 import { OpColorPickerComponent } from './op-color-picker/op-color-picker.component';
 import { OpGradientGeneratorComponent } from './op-gradient-generator/op-gradient-generator.component';
+
+let gifWorker:any = new Component({
+  templateUrl: "./gif/worker"
+})
+
+const routes: Routes = [
+  { path: 'main', component: AppComponent },
+];
 
 @NgModule({
   declarations: [
@@ -30,11 +39,15 @@ import { OpGradientGeneratorComponent } from './op-gradient-generator/op-gradien
     OpGradientGeneratorComponent,
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
     MatRadioModule,
     MatSliderModule,
     NoopAnimationsModule,
+  ],
+  exports: [
+    RouterModule
   ],
   providers: [
   ],
