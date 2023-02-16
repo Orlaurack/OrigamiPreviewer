@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "ng serve",
     "build": "ng build --prod --base-href \"https://orlaurack.github.io/OrigamiPreviewer/\"",
     "test": "ng test",
     "lint": "ng lint",
